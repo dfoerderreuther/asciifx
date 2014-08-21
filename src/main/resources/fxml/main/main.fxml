@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane minHeight="300.0" minWidth="400.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.eleon.asciifx.MainController">
+   <children>
+     <Label prefHeight="45.0" prefWidth="264.0" text="AsciiFX" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0">
+       <font>
+         <Font name="Cantarell Regular" size="26.0" />
+       </font>
+     </Label>
+      <TreeView fx:id="treeView" layoutX="14.0" layoutY="55.0" prefHeight="200.0" prefWidth="200.0" />
+     <HBox id="HBox" alignment="CENTER" spacing="5.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="21.0">
+       <children>
+            <TextField fx:id="search" />
+         <Button fx:id="submitSearch" mnemonicParsing="false" text="search" />
+       </children>
+     </HBox>
+      <AnchorPane fx:id="editor" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="300.0">
+         <children>
+            <TabPane fx:id="editorTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <tabs>
+               </tabs>
+            </TabPane>
+            <ToggleButton fx:id="viewToggle" mnemonicParsing="false" text="View" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="3.0" />
+         </children>
+      </AnchorPane>
+   </children>
+  <stylesheets>
+    <URL value="@/fxml/styles.css" />
+  </stylesheets>
+</AnchorPane>
