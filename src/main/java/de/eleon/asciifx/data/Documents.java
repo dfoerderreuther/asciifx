@@ -1,6 +1,5 @@
 package de.eleon.asciifx.data;
 
-import de.eleon.asciifx.files.FileManager;
 import org.asciidoctor.Asciidoctor;
 import org.asciidoctor.OptionsBuilder;
 import org.springframework.stereotype.Service;
@@ -20,6 +19,7 @@ public class Documents {
 
     private FileManager asciiDocs;
     private FileManager htmlDocs;
+    private String root;
 
     public Documents() {
         String root = String.format("%s/%s", getProperty("user.home"), ".asciifx");
@@ -78,5 +78,9 @@ public class Documents {
 
     public String htmldocContent(String filename) {
         return htmlDocs.read(htmldocName(filename));
+    }
+
+    public String getRoot() {
+        return root;
     }
 }

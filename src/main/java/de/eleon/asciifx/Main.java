@@ -12,6 +12,8 @@ public class Main extends Application {
 
     private ApplicationContext applicationContext;
 
+    public static Stage stage;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -24,9 +26,11 @@ public class Main extends Application {
 
         Pane p = controllerFactory.load("/fxml/main/main.fxml");
         Scene mainScene = new Scene(p);
+        stage = primaryStage;
 
         primaryStage.setScene(mainScene);
         primaryStage.show();
+
     }
 
     public static void main(String[] args) {

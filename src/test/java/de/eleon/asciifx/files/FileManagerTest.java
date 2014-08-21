@@ -1,5 +1,6 @@
 package de.eleon.asciifx.files;
 
+import de.eleon.asciifx.data.FileManager;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

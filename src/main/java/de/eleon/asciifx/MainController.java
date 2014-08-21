@@ -5,18 +5,23 @@ import de.eleon.asciifx.data.Documents;
 import de.eleon.asciifx.fx.controller.ControllerFactory;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.DirectoryChooser;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.io.File;
 
 
 @Component
 public class MainController {
 
     public static final Logger log = Logger.getLogger(MainController.class);
+
 
     @Autowired
     ControllerFactory controllerFactory;
@@ -36,6 +41,8 @@ public class MainController {
     @FXML
     ToggleButton viewToggle;
 
+    @FXML
+    public TextField newFile;
 
     public void initialize() {
         documents.create("test");
@@ -49,6 +56,7 @@ public class MainController {
 
         initViewToggle();
 
+        editorTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
     }
 
     private void initTree() {
@@ -63,9 +71,11 @@ public class MainController {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 TreeItem<String> selected = (TreeItem<String>)newValue;
-                Document read = documents.read(selected.getValue());
-                log.info("selected = [" + selected.getValue() + " / " + read.getFilename() + "]");
-                open(read);
+                if (selected != null) {
+                    Document read = documents.read(selected.getValue());
+                    log.info("selected = [" + selected.getValue() + " / " + read.getFilename() + "]");
+                    open(read);
+                }
             }
         });
     }
@@ -97,4 +107,22 @@ public class MainController {
     }
 
 
+    public void create(ActionEvent actionEvent) {
+        String filename = newFile.getText().trim();
+        if (!filename.isEmpty()) {
+            documents.create(filename);
+            initTree();
+        }
+    }
+
+    public void changeDirectory(ActionEvent actionEvent) {
+
+        DirectoryChooser fileChooser = new DirectoryChooser();
+        //fileChooser.setInitialDirectory(new File(documents.getRoot()));
+        File file = fileChooser.showDialog(Main.stage);
+        log.info(file.getAbsolutePath());
+        documents.setRoot(file.getAbsolutePath());
+        initTree();
+        editorTabPane.getTabs().clear();
+    }
 }

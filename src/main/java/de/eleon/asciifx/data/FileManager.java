@@ -1,4 +1,4 @@
-package de.eleon.asciifx.files;
+package de.eleon.asciifx.data;
 
 import com.google.common.collect.Lists;
 

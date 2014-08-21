@@ -19,6 +19,9 @@
        </font>
      </Label>
       <TreeView fx:id="treeView" layoutX="14.0" layoutY="55.0" prefHeight="200.0" prefWidth="200.0" />
+      <Button layoutX="383.0" layoutY="229.0" mnemonicParsing="false" onAction="#create" text="Create new doc" />
+      <Button layoutX="223.0" layoutY="55.0" mnemonicParsing="false" onAction="#changeDirectory" text="Change directory" />
+      <TextField fx:id="newFile" layoutX="223.0" layoutY="229.0" />
      <HBox id="HBox" alignment="CENTER" spacing="5.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="21.0">
        <children>
             <TextField fx:id="search" />
