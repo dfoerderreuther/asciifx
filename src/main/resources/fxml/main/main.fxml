@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.effect.*?>
 <?import java.lang.*?>
@@ -13,28 +14,24 @@
 
 <AnchorPane minHeight="300.0" minWidth="400.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.eleon.asciifx.MainController">
    <children>
-     <Label prefHeight="45.0" prefWidth="264.0" text="AsciiFX" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0">
-       <font>
-         <Font name="Cantarell Regular" size="26.0" />
-       </font>
-     </Label>
-      <TreeView fx:id="treeView" layoutX="14.0" layoutY="55.0" prefHeight="200.0" prefWidth="200.0" />
-      <Button layoutX="383.0" layoutY="229.0" mnemonicParsing="false" onAction="#create" text="Create new doc" />
-      <Button layoutX="223.0" layoutY="55.0" mnemonicParsing="false" onAction="#changeDirectory" text="Change directory" />
-      <TextField fx:id="newFile" layoutX="223.0" layoutY="229.0" />
-     <HBox id="HBox" alignment="CENTER" spacing="5.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="21.0">
-       <children>
-            <TextField fx:id="search" />
-         <Button fx:id="submitSearch" mnemonicParsing="false" text="search" />
-       </children>
-     </HBox>
-      <AnchorPane fx:id="editor" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="300.0">
+      <ToolBar layoutX="220.0" layoutY="-5.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <Button mnemonicParsing="false" onAction="#changeDirectory" text="cd" />
+            <TextField fx:id="newFile" />
+            <Button mnemonicParsing="false" onAction="#create" text="touch" />
+        </items>
+      </ToolBar>
+      <AnchorPane fx:id="editor" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
          <children>
             <TabPane fx:id="editorTabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <tabs>
+                  <Tab text="Untitled Tab">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
                </tabs>
             </TabPane>
-            <ToggleButton fx:id="viewToggle" mnemonicParsing="false" text="View" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="3.0" />
          </children>
       </AnchorPane>
    </children>

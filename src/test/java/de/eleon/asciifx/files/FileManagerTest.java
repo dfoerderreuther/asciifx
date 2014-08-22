@@ -54,6 +54,16 @@ public class FileManagerTest {
     }
 
     @Test
+    public void shouldListFilesWithExt() throws Exception {
+        underTest.create("a.ad");
+        underTest.create("b.ad");
+        underTest.create("c");
+
+        List<String> files = underTest.list(".ad");
+        assertThat(files, contains("a.ad", "b.ad"));
+    }
+
+    @Test
     public void shouldWriteAndRead() throws Exception {
         underTest.create("test.ad");
         underTest.write("test.ad", "write test");

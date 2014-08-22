@@ -21,7 +21,7 @@ public class Documents {
     private String root;
 
     public Documents() {
-        setRoot(String.format("%s/%s", getProperty("user.home"), ".asciifx"));
+        setRoot(String.format("%s/%s", getProperty("user.home"), "asciifx"));
     }
 
     public void setRoot(String root) {

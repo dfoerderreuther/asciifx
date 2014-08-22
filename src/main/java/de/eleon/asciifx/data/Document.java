@@ -9,7 +9,7 @@ public class Document {
 
     private final String filename;
 
-    private StringProperty content = new SimpleStringProperty();
+    private StringProperty content = new SimpleStringProperty("");
 
     public Document(String filename) {
         this.filename = filename;

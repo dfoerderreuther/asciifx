@@ -61,18 +61,7 @@ public class FileManager {
     }
 
     public List<String> list() {
-        List<String> list = Lists.newArrayList();
-        try {
-            Files.list(root).forEach(new Consumer<Path>() {
-                @Override
-                public void accept(Path path) {
-                    list.add(path.getFileName().toString());
-                }
-            });
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
-        return list;
+        return list("");
     }
 
     public List<String> list(String adExt) {
@@ -81,7 +70,9 @@ public class FileManager {
             Files.list(root).forEach(new Consumer<Path>() {
                 @Override
                 public void accept(Path path) {
-                    list.add(path.getFileName().toString());
+                    if (path.toString().endsWith(adExt)) {
+                        list.add(path.getFileName().toString());
+                    }
                 }
             });
         } catch (IOException e) {

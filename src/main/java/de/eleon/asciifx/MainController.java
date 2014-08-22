@@ -5,11 +5,11 @@ import com.google.common.collect.FluentIterable;
 import de.eleon.asciifx.data.Document;
 import de.eleon.asciifx.data.Documents;
 import de.eleon.asciifx.fx.controller.ControllerFactory;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import org.apache.log4j.Logger;
@@ -35,13 +35,7 @@ public class MainController {
     TabPane editorTabPane;
 
     @FXML
-    TreeView treeView;
-
-    @FXML
     AnchorPane editor;
-
-    @FXML
-    ToggleButton viewToggle;
 
     @FXML
     public TextField newFile;
@@ -52,48 +46,13 @@ public class MainController {
         documents.create("document2");
         documents.create("document3");
 
-        open(documents.read("test"));
+        editorTabPane.getTabs().clear();
 
-        initTree();
+        for (String filename : documents.list()) {
+            open(documents.read(filename));
+        };
 
-        initViewToggle();
-
-        editorTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
-    }
-
-    private void initTree() {
-        TreeItem<String> rootItem = new TreeItem<String> ("Inbox");
-        rootItem.setExpanded(true);
-        for (String name : documents.list()) {
-            TreeItem<String> item = new TreeItem<String>(name);
-            rootItem.getChildren().add(item);
-        }
-        treeView.setRoot(rootItem);
-        treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                TreeItem<String> selected = (TreeItem<String>)newValue;
-                if (selected != null) {
-                    Document read = documents.read(selected.getValue());
-                    log.info("selected = [" + selected.getValue() + " / " + read.getFilename() + "]");
-                    open(read);
-                }
-            }
-        });
-    }
-
-    private void initViewToggle() {
-        viewToggle.selectedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (newValue) {
-                    editor.setTopAnchor(editor, 0d);
-                } else {
-                    editor.setTopAnchor(editor, 300d);
-                }
-            }
-        });
-        viewToggle.selectedProperty().set(true);
+        //editorTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
     }
 
     private void open(Document document) {
@@ -113,27 +72,22 @@ public class MainController {
         editorTabPane.getTabs().add(tab);
         editorTabPane.getSelectionModel().select(tab);
 
-        treeView.getSelectionModel().clearSelection();
     }
-
 
     public void create(ActionEvent actionEvent) {
         String filename = newFile.getText().trim();
         if (!filename.isEmpty()) {
-            documents.create(filename);
-            initTree();
+            open(documents.create(filename));
         }
     }
 
     public void changeDirectory(ActionEvent actionEvent) {
-
         DirectoryChooser fileChooser = new DirectoryChooser();
         fileChooser.setInitialDirectory(new File(documents.getRoot()));
         File file = fileChooser.showDialog(Main.stage);
         if (file != null) {
             log.info(file.getAbsolutePath());
             documents.setRoot(file.getAbsolutePath());
-            initTree();
             editorTabPane.getTabs().clear();
         }
     }

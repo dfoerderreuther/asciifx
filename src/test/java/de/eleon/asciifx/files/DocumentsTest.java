@@ -61,7 +61,7 @@ public class DocumentsTest {
         underTest.create("b");
 
         List<String> list = underTest.list();
-        assertThat(list, contains("a".concat(AD_EXT), "b".concat(AD_EXT), "html"));
+        assertThat(list, contains("a".concat(AD_EXT), "b".concat(AD_EXT)));
     }
 
     @Test
