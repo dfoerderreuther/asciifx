@@ -14,7 +14,6 @@ public class Documents {
 
     public static final String AD_EXT = ".ad";
     public static final String HTML_EXT = ".html";
-    public static final String ASCIIDOC_DIRECTORY = "asciidocs";
     public static final String HTML_DIRECTORY = "html";
 
     private FileManager asciiDocs;
@@ -22,12 +21,12 @@ public class Documents {
     private String root;
 
     public Documents() {
-        String root = String.format("%s/%s", getProperty("user.home"), ".asciifx");
-        setRoot(root);
+        setRoot(String.format("%s/%s", getProperty("user.home"), ".asciifx"));
     }
 
     public void setRoot(String root) {
-        asciiDocs = new FileManager(Paths.get(root, ASCIIDOC_DIRECTORY));
+        this.root = root;
+        asciiDocs = new FileManager(Paths.get(root));
         htmlDocs = new FileManager(Paths.get(root, HTML_DIRECTORY));
     }
 
@@ -46,7 +45,7 @@ public class Documents {
     }
 
     public List<String> list() {
-        return asciiDocs.list();
+        return asciiDocs.list(AD_EXT);
     }
 
     public Document read(String filename) {

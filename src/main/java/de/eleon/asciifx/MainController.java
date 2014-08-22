@@ -1,5 +1,7 @@
 package de.eleon.asciifx;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.FluentIterable;
 import de.eleon.asciifx.data.Document;
 import de.eleon.asciifx.data.Documents;
 import de.eleon.asciifx.fx.controller.ControllerFactory;
@@ -98,12 +100,20 @@ public class MainController {
 
         AnchorPane child = controllerFactory.loadSubController("/fxml/editor/editor.fxml", this, document);
         child.setUserData(document);
+        if (FluentIterable.from(editorTabPane.getTabs()).firstMatch(new Predicate<Tab>() {
+            @Override
+            public boolean apply(Tab input) {
+                return input.equals(document.getFilename());
+            }
+        }).isPresent()) return;
         Tab tab = new Tab();
         tab.setText(document.getFilename());
         tab.setContent(child);
 
         editorTabPane.getTabs().add(tab);
         editorTabPane.getSelectionModel().select(tab);
+
+        treeView.getSelectionModel().clearSelection();
     }
 
 
@@ -118,11 +128,13 @@ public class MainController {
     public void changeDirectory(ActionEvent actionEvent) {
 
         DirectoryChooser fileChooser = new DirectoryChooser();
-        //fileChooser.setInitialDirectory(new File(documents.getRoot()));
+        fileChooser.setInitialDirectory(new File(documents.getRoot()));
         File file = fileChooser.showDialog(Main.stage);
-        log.info(file.getAbsolutePath());
-        documents.setRoot(file.getAbsolutePath());
-        initTree();
-        editorTabPane.getTabs().clear();
+        if (file != null) {
+            log.info(file.getAbsolutePath());
+            documents.setRoot(file.getAbsolutePath());
+            initTree();
+            editorTabPane.getTabs().clear();
+        }
     }
 }

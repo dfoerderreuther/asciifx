@@ -41,8 +41,8 @@ public class DocumentsTest {
         underTest.create("a");
         underTest.create("b".concat(AD_EXT));
 
-        assertThat(path(ASCIIDOC_DIRECTORY, "a".concat(AD_EXT)), exist());
-        assertThat(path(ASCIIDOC_DIRECTORY, "b".concat(AD_EXT)), exist());
+        assertThat(path("a".concat(AD_EXT)), exist());
+        assertThat(path("b".concat(AD_EXT)), exist());
     }
 
     @Test
@@ -61,7 +61,7 @@ public class DocumentsTest {
         underTest.create("b");
 
         List<String> list = underTest.list();
-        assertThat(list, contains("a".concat(AD_EXT), "b".concat(AD_EXT)));
+        assertThat(list, contains("a".concat(AD_EXT), "b".concat(AD_EXT), "html"));
     }
 
     @Test
@@ -76,8 +76,8 @@ public class DocumentsTest {
         assertThat(name, is("a".concat(HTML_EXT)));
     }
 
-    private Path path(String directory, String filename) {
-        return Paths.get(home.getRoot().toString(), directory, filename);
+    private Path path(String... filename) {
+        return Paths.get(home.getRoot().toString(), filename);
     }
 
 

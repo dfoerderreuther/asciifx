@@ -75,6 +75,21 @@ public class FileManager {
         return list;
     }
 
+    public List<String> list(String adExt) {
+        List<String> list = Lists.newArrayList();
+        try {
+            Files.list(root).forEach(new Consumer<Path>() {
+                @Override
+                public void accept(Path path) {
+                    list.add(path.getFileName().toString());
+                }
+            });
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+        return list;
+    }
+
     public Path pathOf(String filename) {
         return path(filename);
     }
